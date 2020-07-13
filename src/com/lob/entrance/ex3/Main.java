@@ -13,7 +13,7 @@ public class Main {
             if (sentence.equals("q")) {
                 break;
             }
-            var words = Arrays.stream(sentence.split("\\W+"))
+            var words = Arrays.stream(sentence.split("\\P{L}+"))
                     .map(s -> s.substring(0, 1).toUpperCase() + s.substring(1))
                     .sorted()
                     .collect(Collectors.toList());

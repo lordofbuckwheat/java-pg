@@ -11,7 +11,7 @@ public class Main {
         var text = scanner.nextLine();
         System.out.print("Word: ");
         var word = scanner.nextLine().trim().toLowerCase();
-        var count = Arrays.stream(text.split("\\W+")).map(String::toLowerCase).filter(s -> s.equals(word)).count();
+        var count = Arrays.stream(text.split("\\P{L}+")).map(String::toLowerCase).filter(s -> s.equals(word)).count();
         System.out.printf("Number of matches: %d\n", count);
     }
 
