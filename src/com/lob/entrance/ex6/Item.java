@@ -2,8 +2,8 @@ package com.lob.entrance.ex6;
 
 public class Item {
     private String name;
-    private int weight;
-    private int value;
+    private final int weight;
+    private final int value;
 
     public Item(String name, int weight, int value) {
         this.name = name;
@@ -12,15 +12,15 @@ public class Item {
     }
 
     public int getWeight() {
-        return weight;
+        return this.weight;
     }
 
     public int getValue() {
-        return value;
+        return this.value;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
 }

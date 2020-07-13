@@ -7,19 +7,19 @@ import java.util.stream.IntStream;
 public class Main {
 
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
+        Scanner scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
         while (true) {
             System.out.print("Enter a number: ");
             if (!scanner.hasNext()) {
                 break;
             }
             if (scanner.hasNextInt()) {
-                var n = scanner.nextInt();
+                int n = scanner.nextInt();
                 if (n <= 0 || n > 100) {
                     System.out.println("incorrect input");
                     continue;
                 }
-                var palindromes = IntStream.rangeClosed(0, n)
+                String palindromes = IntStream.rangeClosed(0, n)
                         .filter(Main::isPalindrome)
                         .mapToObj(String::valueOf)
                         .collect(Collectors.joining(", "));
@@ -34,10 +34,10 @@ public class Main {
     }
 
     private static boolean isPalindrome(int n) {
-        var c = n;
-        var rev = 0;
+        int c = n;
+        int rev = 0;
         while (n > 0) {
-            var rem = n % 10;
+            int rem = n % 10;
             rev = rev * 10 + rem;
             n /= 10;
         }

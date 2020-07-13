@@ -5,14 +5,14 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
+        Scanner scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
         while (true) {
             System.out.print("Enter a number: ");
             if (!scanner.hasNext()) {
                 break;
             }
             if (scanner.hasNextLong()) {
-                var x = scanner.nextLong();
+                long x = scanner.nextLong();
                 if (x > 1) {
                     System.out.printf("%d is %s\n", x, isPrime(x) ? "prime" : "composite");
                 }

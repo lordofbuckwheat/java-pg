@@ -5,11 +5,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        var scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
+        Scanner scanner = new Scanner(System.in).useDelimiter(System.lineSeparator());
         try {
             while (true) {
-                var x = readNumber(scanner, "first");
-                var y = readNumber(scanner, "second");
+                long x = readNumber(scanner, "first");
+                long y = readNumber(scanner, "second");
                 System.out.printf("greatest common divisor: %d\n", gcd(x, y));
                 System.out.printf("least common multiple: %d\n", lcm(x, y));
             }
@@ -24,7 +24,7 @@ public class Main {
                 throw new EOFException();
             }
             if (scanner.hasNextLong()) {
-                var result = scanner.nextLong();
+                long result = scanner.nextLong();
                 if (result < 1) {
                     System.out.println("incorrect input");
                     continue;
@@ -43,7 +43,7 @@ public class Main {
         if (a < 1 || b < 1)
             throw new IllegalArgumentException("a or b is less than 1");
         while (b != 0) {
-            var tmp = a;
+            long tmp = a;
             a = b;
             b = tmp % b;
         }

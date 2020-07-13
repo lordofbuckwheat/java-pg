@@ -3,8 +3,8 @@ package com.lob.entrance.ex6;
 public class Main {
 
     public static void main(String[] args) {
-        var knapsack = new Knapsack(67);
-        var items = new Item[]{
+        Knapsack knapsack = new Knapsack(67);
+        Item[] items = new Item[]{
                 new Item("Item 1", 23, 505),
                 new Item("Item 2", 26, 352),
                 new Item("Item 3", 20, 458),
