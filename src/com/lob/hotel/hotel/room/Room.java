@@ -1,5 +1,6 @@
 package com.lob.hotel.hotel.room;
 
+import com.lob.hotel.hotel.Model;
 import com.lob.hotel.hotel.guest.Guest;
 import com.lob.hotel.hotel.room.exseptions.RoomException;
 import com.lob.hotel.hotel.room.exseptions.RoomIsEmptyException;
@@ -9,7 +10,7 @@ import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Room {
+public class Room extends Model {
 
   private final int capacity;
   private final int rating;

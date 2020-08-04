@@ -1,28 +1,26 @@
 package com.lob.hotel.hotel;
 
-import com.lob.hotel.hotel.exceptions.DuplicateEntryException;
 import com.lob.hotel.hotel.exceptions.NotFoundException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
-public abstract class Repository<T> {
+public abstract class Repository<T extends Model> {
 
-  protected final Set<T> set = new HashSet<>();
+  protected final Map<Integer, T> storage = new HashMap<>();
 
-  public void add(T object) throws DuplicateEntryException {
-    if (!this.set.add(object)) {
-      throw new DuplicateEntryException();
-    }
+  public void add(T object) {
+    int lastId = this.storage.keySet().stream().mapToInt(Integer::valueOf).max().orElse(0);
+    this.storage.put(++lastId, object);
+    object.setId(lastId);
   }
 
   public void delete(T object) throws NotFoundException {
-    if (!this.set.remove(object)) {
+    if (!this.storage.containsKey(object.getId())) {
       throw new NotFoundException();
     }
+    this.storage.remove(object.getId());
   }
 
   public abstract void update(T object);
-
-  public abstract T[] list();
 
 }
