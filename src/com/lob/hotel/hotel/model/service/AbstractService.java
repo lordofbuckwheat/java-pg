@@ -1,4 +1,4 @@
-package com.lob.hotel.hotel.service;
+package com.lob.hotel.hotel.model.service;
 
 public abstract class AbstractService {
 

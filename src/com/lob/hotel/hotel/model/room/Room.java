@@ -1,11 +1,11 @@
-package com.lob.hotel.hotel.room;
+package com.lob.hotel.hotel.model.room;
 
-import com.lob.hotel.hotel.Model;
-import com.lob.hotel.hotel.guest.Guest;
-import com.lob.hotel.hotel.room.exseptions.RoomException;
-import com.lob.hotel.hotel.room.exseptions.RoomIsEmptyException;
-import com.lob.hotel.hotel.room.exseptions.RoomIsOccupiedException;
-import com.lob.hotel.hotel.room.exseptions.RoomIsUnavailableException;
+import com.lob.hotel.hotel.model.Model;
+import com.lob.hotel.hotel.model.guest.Guest;
+import com.lob.hotel.hotel.model.room.exseptions.RoomException;
+import com.lob.hotel.hotel.model.room.exseptions.RoomIsEmptyException;
+import com.lob.hotel.hotel.model.room.exseptions.RoomIsOccupiedException;
+import com.lob.hotel.hotel.model.room.exseptions.RoomIsUnavailableException;
 import java.time.Period;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,7 +15,7 @@ public class Room extends Model {
   private final int capacity;
   private final int rating;
   private int rate;
-  private Set<Guest> guests = new HashSet<>();
+  private final Set<Guest> guests = new HashSet<>();
   private boolean isOutOfOrder;
 
   public Room(int capacity, int rating, int rate) {

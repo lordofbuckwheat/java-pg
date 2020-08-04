@@ -1,6 +1,4 @@
-package com.lob.hotel.hotel.guest;
-
-import java.util.Objects;
+package com.lob.hotel.hotel.model.guest;
 
 public class Guest {
 
