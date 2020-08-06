@@ -10,10 +10,11 @@ public class Repository<T extends Model> {
 
   private final Map<Integer, T> storage = new HashMap<>();
 
-  public void add(T object) {
+  public void add(T object) throws CloneNotSupportedException {
     int lastId = this.storage.keySet().stream().mapToInt(Integer::valueOf).max().orElse(0);
-    this.storage.put(++lastId, object);
+    lastId++;
     object.setId(lastId);
+    this.storage.put(lastId, (T) object.clone());
   }
 
   public void delete(T object) throws NotFoundException {
@@ -23,15 +24,16 @@ public class Repository<T extends Model> {
     this.storage.remove(object.getId());
   }
 
-  public void update(T object) throws NotFoundException {
+  public void update(T object) throws NotFoundException, CloneNotSupportedException {
     if (!this.storage.containsKey(object.getId())) {
       throw new NotFoundException();
     }
-    this.storage.replace(object.getId(), object);
+    this.storage.replace(object.getId(), (T) object.clone());
   }
 
-  public T findOne(Predicate<T> spec) throws NotFoundException {
-    return this.storage.values().stream().filter(spec).findFirst().orElseThrow(NotFoundException::new);
+  public T findOne(Predicate<T> spec) throws NotFoundException, CloneNotSupportedException {
+    return (T) this.storage.values().stream().filter(spec).findFirst()
+        .orElseThrow(NotFoundException::new).clone();
   }
 
 }

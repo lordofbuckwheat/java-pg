@@ -2,21 +2,25 @@ package com.lob.hotel.hotel.model.room;
 
 import com.lob.hotel.hotel.model.Model;
 import com.lob.hotel.hotel.model.guest.Guest;
+import com.lob.hotel.hotel.model.guest.GuestIsAbsentException;
+import com.lob.hotel.hotel.model.room.exseptions.GuestNotFoundException;
 import com.lob.hotel.hotel.model.room.exseptions.RoomException;
-import com.lob.hotel.hotel.model.room.exseptions.RoomIsEmptyException;
 import com.lob.hotel.hotel.model.room.exseptions.RoomIsOccupiedException;
 import com.lob.hotel.hotel.model.room.exseptions.RoomIsUnavailableException;
-import java.time.Period;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-public class Room extends Model {
+public class Room extends Model implements Cloneable {
 
   private final int capacity;
   private final int rating;
   private int rate;
   private final Set<Guest> guests = new HashSet<>();
   private boolean isOutOfOrder;
+  private List<GuestRecord> guestRecords = new ArrayList<>();
 
   public Room(int capacity, int rating, int rate) {
     this.capacity = capacity;
@@ -32,7 +36,7 @@ public class Room extends Model {
     return this.rate;
   }
 
-  public void checkIn(Guest guest, Period lengthOfStay) throws RoomException {
+  public void acceptGuest(Guest guest) throws RoomException {
     if (this.isOutOfOrder) {
       throw new RoomIsUnavailableException();
     }
@@ -44,23 +48,25 @@ public class Room extends Model {
     }
   }
 
-  public void checkOut() throws RoomException {
-    if (this.isOutOfOrder) {
-      throw new RoomIsUnavailableException();
+  public void removeGuest(Guest guest) throws RoomException {
+    if (!this.guests.contains(guest)) {
+      throw new GuestNotFoundException();
     }
-    if (!this.hasGuests()) {
-      throw new RoomIsEmptyException();
-    }
-    this.guests--;
+    GuestRecord guestRecord = new GuestRecord();
+    guestRecord.guest = guest;
+    guestRecord.dayOfAdmission = guest.getDayOfAdmission();
+    guestRecord.dayOfDischarge = guest.getDayOfDischarge();
+    this.guests.remove(guest);
+    this.guestRecords.add(guestRecord);
   }
 
-  public void setIsOutOfOrder(boolean outOfOrder) throws RoomException {
-    if (outOfOrder) {
-      while (this.hasGuests()) {
-        this.checkOut();
+  public void setIsOutOfOrder(boolean isOutOfOrder) throws RoomException, GuestIsAbsentException {
+    if (isOutOfOrder) {
+      while (!this.guests.isEmpty()) {
+        this.guests.iterator().next().checkOut();
       }
     }
-    this.isOutOfOrder = outOfOrder;
+    this.isOutOfOrder = isOutOfOrder;
   }
 
   public boolean getIsOutOfOrder() {
@@ -72,7 +78,15 @@ public class Room extends Model {
   }
 
   private boolean hasGuests() {
-    return this.guests.length > 0;
+    return this.guests. > 0;
+  }
+
+  private static class GuestRecord {
+
+    public Guest guest;
+    public LocalDate dayOfAdmission;
+    public LocalDate dayOfDischarge;
+
   }
 
 }

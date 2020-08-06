@@ -3,6 +3,7 @@ package com.lob.hotel;
 public class Main {
 
   public static void main(String[] args) {
+
     /*Hotel hotel = new Hotel();
     AbstractRoom room = new KingRoom(123);
     hotel.addRoom(room);
